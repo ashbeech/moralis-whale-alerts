@@ -1,4 +1,4 @@
-# Whale Alerts [version]
+# Whale Alerts Dapp
 
 ## About
 
@@ -88,7 +88,5 @@ Function `afterSave` on `EthTransactions` then is where you create conditons aga
 - [Moralis Discord](https://discord.com/channels/819584798443569182)
 - [Moralis YouTube](https://www.youtube.com/channel/UCgWS9Q3P5AxCWyQLT2kQhBw)
 - [Moralis GitHub](https://github.com/MoralisWeb3)
-
-# Built with Moralis
 
 ---
