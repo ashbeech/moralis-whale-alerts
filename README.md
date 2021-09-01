@@ -1,4 +1,4 @@
-# Whale Alerts Dapp
+# Whale Alerts Dapp 🐋🚨
 
 ## About
 
@@ -8,7 +8,7 @@ This initial tutorial video is a great introduction: [Link to Moralis YouTube Vi
 
 Built on [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html) a ReactJS front-end with a Moralis backend.
 
-## ⚙️ Quick start
+## ⚙️ Quick Launch 🚀
 
 Via terminal, navigate to root directory:
 
@@ -45,7 +45,7 @@ npm start
 
 ```
 
-## Dependencies:
+## Dependencies: 🏗
 
 `moralis`: [Docs](https://docs.moralis.io/)
 
@@ -55,7 +55,7 @@ npm start
 
 `react`, `react-dom` `react-moralis` should be installed automatically ([package.json](./package.json)).
 
-## Adapt Alert Conditons
+## Adapt Alert Conditons 🛠
 
 Cloud function `run` on `watchEthAddress` adds `address` to your list of addresses to track transactions on.
 
@@ -76,17 +76,18 @@ Function `afterSave` on `EthTransactions` then is where you create conditons aga
  }
 ```
 
-## Todos
+## Todos ✅
 
 - [ ] Dispatch alerts via Telegram/Twitter/
 - [ ] Threshold conditions against tx e.g. only txs > $1,000,000.
 - [ ] Enable cross-chain compatibility.
 - [ ] Much more TBA.
 
-## Community BUIDLing
+## Community BUIDLing 👨‍🔧👩‍🔧
 
+- [Moralis Forum](hhttps://forum.moralis.io/)
 - [Moralis Discord](https://discord.com/channels/819584798443569182)
-- [Moralis YouTube](https://www.youtube.com/channel/UCgWS9Q3P5AxCWyQLT2kQhBw)
 - [Moralis GitHub](https://github.com/MoralisWeb3)
+- [Moralis YouTube](https://www.youtube.com/channel/UCgWS9Q3P5AxCWyQLT2kQhBw)
 
 ---
