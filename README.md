@@ -31,7 +31,7 @@ moralis-admin-cli watch-cloud-file --moralisApiKey xxx --moralisApiSecret xxx --
 
 ```
 
-Finally provide your path to the CloudFile.js and sync with Moralis server instance:
+Finally provide your path to the [CloudFile](src/Cloud/CloudFile.js) and sync with Moralis server instance:
 
 ```sh
 /xxx/moralis-whale-alerts/src/Cloud/CloudFile.js
