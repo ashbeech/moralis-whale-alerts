@@ -24,7 +24,7 @@ npm install -g moralis-admin-cli
 
 ```
 
-This will allow you to sync Moralis Cloud Functions in [/src/Cloud/CloudFile.js](CloudFile.js):
+This will allow you to sync Moralis Cloud Functions in [src/Cloud/CloudFile.js](CloudFile.js):
 
 ```sh
 moralis-admin-cli watch-cloud-file --moralisApiKey xxx --moralisApiSecret xxx --moralisSubdomain xxx.moralisweb3.com --autoSave 1 --moralisCloudfolder /xxx/moralis-whale-alerts/src/Cloud
