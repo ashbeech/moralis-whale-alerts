@@ -17,7 +17,7 @@ npm install
 
 ```
 
-Also install Moralis admin client:
+Install Moralis admin client:
 
 ```sh
 npm install -g moralis-admin-cli
