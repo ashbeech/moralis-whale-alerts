@@ -45,7 +45,7 @@ npm start
 
 ```
 
-## Dependencies: 🏗
+## Dependencies 🏗
 
 `moralis`: [Docs](https://docs.moralis.io/)
 
