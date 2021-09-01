@@ -85,7 +85,7 @@ Function `afterSave` on `EthTransactions` then is where you create conditons aga
 
 ## Community BUIDLing 👨‍🔧👩‍🔧
 
-- [Moralis Forum](hhttps://forum.moralis.io/)
+- [Moralis Forum](https://forum.moralis.io/)
 - [Moralis Discord](https://discord.com/channels/819584798443569182)
 - [Moralis GitHub](https://github.com/MoralisWeb3)
 - [Moralis YouTube](https://www.youtube.com/channel/UCgWS9Q3P5AxCWyQLT2kQhBw)
