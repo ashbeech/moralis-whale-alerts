@@ -24,7 +24,7 @@ npm install -g moralis-admin-cli
 
 ```
 
-This will allow you to sync Moralis Cloud Functions in [src/Cloud/CloudFile.js](CloudFile.js):
+This will allow you to sync Moralis Cloud Functions in [./src/Cloud/CloudFile.js](CloudFile.js):
 
 ```sh
 moralis-admin-cli watch-cloud-file --moralisApiKey xxx --moralisApiSecret xxx --moralisSubdomain xxx.moralisweb3.com --autoSave 1 --moralisCloudfolder /xxx/moralis-whale-alerts/src/Cloud
@@ -48,7 +48,9 @@ npm start
 ## Dependencies:
 
 `moralis`: [Docs](https://docs.moralis.io/)
+
 `@chakra-ui/react`: [Docs](https://chakra-ui.com/docs/getting-started)
+
 `react-final-form`: [Docs](https://final-form.org/docs/final-form/getting-started)
 
 `react`, `react-dom` `react-moralis` should be installed automatically ([package.json](./package.json)).
@@ -62,7 +64,7 @@ Cloud function `run` on `watchEthAddress` adds `address` to your list of address
 // sync all txs in realtime to WatchedEthAddress class
 Moralis.Cloud.run("watchEthAddress", {
   address,
-  sync_historical: false,
+  …
 });
 ```
 
@@ -76,14 +78,15 @@ Function `afterSave` on `EthTransactions` then is where you create conditons aga
 
 ## Todos
 
-- Dispatch alerts via Telegram/Twitter/
-- Threshold conditions against tx e.g. only txs > $1,000,000.
-- Enable cross-chain compatibility.
-- Much more TBA.
+- [ ] Dispatch alerts via Telegram/Twitter/
+- [ ] Threshold conditions against tx e.g. only txs > $1,000,000.
+- [ ] Enable cross-chain compatibility.
+- [ ] Much more TBA.
 
 ## Community BUIDLing
 
 - [Moralis Discord](https://discord.com/channels/819584798443569182)
 - [Moralis YouTube](https://www.youtube.com/channel/UCgWS9Q3P5AxCWyQLT2kQhBw)
+- [Moralis GitHub](https://github.com/MoralisWeb3)
 
 ---
