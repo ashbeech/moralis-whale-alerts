@@ -2,9 +2,9 @@
 
 ## About
 
-Purpose: Allow user to track wallet addresses, cross-chain (ETH/BSC/MATIC/…) and recieve alerts when specific transaction conditions are met.
+Aim: Allow user to track wallet addresses, cross-chain (ETH/BSC/MATIC/…) and recieve alerts when specific transaction conditions are met.
 
-This tutorial video is a great video introduction: [Link to Moralis YouTube Video](https://youtu.be/-M1GR45GykQ).
+This initial tutorial video is a great introduction: [Link to Moralis YouTube Video](https://youtu.be/-M1GR45GykQ).
 
 Built on [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html) a ReactJS front-end with a Moralis backend.
 
@@ -80,5 +80,10 @@ Function `afterSave` on `EthTransactions` then is where you create conditons aga
 - Threshold conditions against tx e.g. only txs > $1,000,000.
 - Enable cross-chain compatibility.
 - Much more TBA.
+
+## Community BUIDLing
+
+- [Moralis Discord](https://discord.com/channels/819584798443569182)
+- [Moralis YouTube](https://www.youtube.com/channel/UCgWS9Q3P5AxCWyQLT2kQhBw)
 
 ---
