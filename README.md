@@ -8,7 +8,7 @@ This initial tutorial video is a great introduction: [Link to Moralis YouTube Vi
 
 Built on [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html) a ReactJS front-end with a Moralis backend.
 
-## ⚙️ Quick Launch 🚀
+## Quick Launch 🚀
 
 Via terminal, navigate to root directory:
 
