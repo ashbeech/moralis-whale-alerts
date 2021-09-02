@@ -17,6 +17,15 @@ npm install
 
 ```
 
+Go to [Moralis.io](https://moralis.io/) to create your server instance.
+In the root directory of your code base create a `.env` file containing the moralis servers' enviroment variables:
+
+```sh
+REACT_APP_MORALIS_APPLICATION_ID=xxx
+REACT_APP_MORALIS_SERVER_URL=https://xxx.bigmoralis.com:2053/server
+
+```
+
 Install Moralis admin client:
 
 ```sh
