@@ -16,15 +16,14 @@ const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
 Moralis.initialize(appId);
 Moralis.serverURL = serverUrl;
 
-  /**
-   * Build form and handle input
-   *
-   * @method onSubmit
-   * @return <Form/>
-   */
+/**
+ * Build form and handle input
+ *
+ * @method onSubmit
+ * @return <Form/>
+ */
 
 export const WatchAddress = () => {
-
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   // handle form submission
@@ -37,10 +36,14 @@ export const WatchAddress = () => {
     // run cloud function to watch, sync and alert
     const watch = await Moralis.Cloud.run("watchAddress", params);
     // user feedback
-    if(watch){
-      window.alert(JSON.stringify(address + " added to watch list. 🐋👀", 0, 2));
+    if (watch) {
+      window.alert(
+        JSON.stringify(address + " added to watch list. 🐋👀", 0, 2)
+      );
     } else {
-      window.alert(JSON.stringify("🚫 You're already watching this address. 🚫", 0, 2));
+      window.alert(
+        JSON.stringify("🚫 You're already watching this address. 🚫", 0, 2)
+      );
     }
   };
 
@@ -64,14 +67,18 @@ export const WatchAddress = () => {
           boxShadow="1px 1px 3px rgba(0,0,0,0.3)"
           onSubmit={handleSubmit}
         >
-        {
-          // input field
-        }
-          <InputControl name="address" label="Enter Address" colorScheme="green"/>
-          <ButtonGroup spacing={4}>
           {
-          // submit button
+            // input field
           }
+          <InputControl
+            name="address"
+            label="Enter Address"
+            colorScheme="green"
+          />
+          <ButtonGroup spacing={4}>
+            {
+              // submit button
+            }
             <Button
               isLoading={submitting}
               loadingText="Submitting"
