@@ -1,11 +1,16 @@
-const sha3_256 = require('js-sha3').sha3_256;
+const sha3_256 = require("js-sha3").sha3_256;
 
 const validate = (values) => {
   const errors = {};
+  // address field
   if (!values.address) {
     errors.address = "Required";
   } else if (ValidateAddress(values.address) === false) {
     errors.address = "Not a valid address";
+  }
+  // checkboxes
+  if (!values.alert_method || values.alert_method.length < 1) {
+    errors.alert_method = "You need at least 1 method";
   }
   return errors;
 };

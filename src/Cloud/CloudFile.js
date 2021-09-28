@@ -9,8 +9,38 @@
 
 // ---
 
-const sendTelegramAlert = async (request) => {
-  // Telegram creds
+const sendTelegramAlert = async (request, tx_data, token_data) => {
+  let prefix = "$";
+  let sufffix = "";
+  let address = tx_data.get("address");
+  let condition = tx_data.get("conditions");
+  let notes = tx_data.get("notes");
+
+  // human readable message e.g. $3,000,000 transferred from wallet (0x…)
+  // todo: fully convert to human readable values
+
+  if (condition == "increase") {
+    sufffix =
+      "transferred to wallet address (https://etherscan.io/tx/" +
+      request.get("hash") +
+      ")";
+  } else if (condition == "decrease") {
+    sufffix =
+      "transferred from wallet address (https://etherscan.io/tx/" +
+      request.get("hash") +
+      ")";
+  } else {
+    sufffix =
+      "at wallet address (https://etherscan.io/tx/" + request.get("hash") + ")";
+  }
+
+  // temporary demo alert readout
+  logger.info("----------------");
+  logger.info("Notes: " + notes); // user notes
+  logger.info(prefix + token_data.get("value") + " " + sufffix); // human readable sentence
+  logger.info("--🚨ALERT 🚨--");
+
+  /*   // Telegram creds
   const telegram_bot_id = "xxx"; // <-- ENTER TELEGRAM BOT ID
   const chat_id = "-xxx"; // <-- ENTER TELEGRAM CHAT ID
 
@@ -34,7 +64,7 @@ const sendTelegramAlert = async (request) => {
     function (httpResponse) {
       logger.info("Request failed with response code " + httpResponse.status);
     }
-  );
+  ); */
 };
 
 // full description of how to set this up with Moralis x SendGrid here:
@@ -61,8 +91,17 @@ Moralis.Cloud.define("watchAddress", async (request) => {
     logger.info("error: missing address param.");
   } else {
     let address = request.params.address;
+    // capture params
+    // method of alerting
+    let alert_method = request.params.alert_method;
+    // conditions to be met
+    let conditions = request.params.conditions;
+    // user threshold
+    let threshold = request.params.threshold;
+    // user notes
+    let notes = request.params.notes;
 
-    if (!address) {
+    if (!address || !alert_method) {
       return null;
     }
 
@@ -83,15 +122,20 @@ Moralis.Cloud.define("watchAddress", async (request) => {
       sync_historical: false,
     });
 
-    // method of alerting
-    const alert_method = "telegram"; // temporarily static for demo telegram/email/twitter/etc
     // check address has saved
     const query = new Moralis.Query("WatchedEthAddress");
     // get row of saved address
     query.equalTo("address", address);
     const row_object = await query.first();
+    // set notes for that row
+    row_object.set("notes", notes);
     // set alert method for that row
     row_object.set("alertMethod", alert_method);
+    // set conditons for that row
+    row_object.set("conditions", conditions);
+    // set threshold
+    row_object.set("threshold", threshold);
+
     // save it
     try {
       await row_object.save();
@@ -102,39 +146,92 @@ Moralis.Cloud.define("watchAddress", async (request) => {
     // every time the 'to_address' of tx is on our watch list, fire alert
     Moralis.Cloud.afterSave("EthTransactions", async function (request) {
       // check address is in watch list
-      const to_address = request.object.get("to_address");
-      // query list of watched addresses
-      const query = new Moralis.Query("WatchedEthAddress");
-      // temporary demo alert condition: address of tx == to_address
-      query.equalTo("address", to_address);
+      let to_address = request.object.get("to_address");
+      let from_address = request.object.get("from_address");
+
+      // if tx related to watched addresses, fetch meta data
+      const txCheckQuery = new Moralis.Query("WatchedEthAddress");
+      // address of tx == to_address or from_address
+      txCheckQuery.containedIn("address", [to_address, from_address]);
       // results = tx data
-      const tx_data = await query.first();
+      let tx_data = await txCheckQuery.first();
+      // set alert status
+      let alert = false;
 
-      // results exist, fire alert with link to block explorer
+      // capture meta data
       if (tx_data) {
-        // temporary demo alert readout
-        /*
-        logger.info("----------------");
-        logger.info("https://etherscan.io/tx/" + request.object.get("hash"));
-        logger.info("--🚨ALERT 🚨--");
-        */
-
-        // declare alert method from
+        // alert method
         let _alert_method = tx_data.get("alertMethod");
-        // pass instructions to allocated alert functions as request.object
+        // conditions
+        let _conditions = tx_data.get("conditions");
+        // threshold
+        let _threshold = tx_data.get("threshold");
 
-        //if telegram selected
-        if (_alert_method == "telegram") {
-          sendTelegramAlert(request.object);
+        // check against user set condtions
+        // query token transfers for value
+        let tokenCheckQuery = new Moralis.Query("EthTokenTransfers");
+        let token_data = null;
+        // if conditons set
+        if (_conditions) {
+          if (_conditions == "increase") {
+            tokenCheckQuery.equalTo("to_address", to_address);
+            // results = token data
+            token_data = await txCheckQuery.first();
+            if (token_data) {
+              alert = true;
+            }
+          } else if (_conditions == "decrease") {
+            tokenCheckQuery.equalTo("from_address", from_address);
+            // results = token data
+            token_data = await txCheckQuery.first();
+            if (token_data) {
+              alert = true;
+            }
+          } else if (_conditions == "change") {
+          } else {
+            alert = false;
+          }
+        } else {
+          tokenCheckQuery.containedIn(
+            ["to_address", "from_address"],
+            [to_address, from_address]
+          );
+          // results = token data
+          token_data = await txCheckQuery.first();
+          if (token_data) {
+            alert = true;
+          }
         }
-        //if email selected
-        if (_alert_method == "email") {
-          //sendEmailAlert(request.object);
+
+        // if threshold set
+        if (alert == true && _threshold) {
+          // e.g. 3673168940000 > 3,000,000
+          if (token_data.get("value") >= _threshold) {
+            alert = true;
+          } else {
+            alert = false;
+          }
         }
-        //if Twitter selected
-        if (_alert_method == "twitter") {
-          //todo: expose to twitter API
-          //sendTwitterAlert(request.object);
+
+        // if passed conditions for the saved address…
+        // pass instructions to allocated alert functions as request.object
+        if (alert == true) {
+          //if telegram selected
+          if (_alert_method == "telegram") {
+            // conditions
+            sendTelegramAlert(request.object, tx_data, token_data);
+          }
+          //if email selected
+          if (_alert_method == "email") {
+            //sendEmailAlert(request.object);
+          }
+          //if Twitter selected
+          if (_alert_method == "twitter") {
+            //todo: expose to twitter API
+            //sendTwitterAlert(request.object);
+          }
+        } else {
+          return false;
         }
       }
     });
