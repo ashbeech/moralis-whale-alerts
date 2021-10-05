@@ -17,7 +17,7 @@ const validate = (values) => {
 
 const ValidateAddress = (address) => {
   /**
-   * Checks if the given string is a checksummed address
+   * checks if the given string is a checksummed address
    *
    * @method isChecksumAddress
    * @param {String} address the given HEX adress
@@ -30,10 +30,10 @@ const ValidateAddress = (address) => {
     /^(0x)?[0-9a-f]{40}$/.test(address) ||
     /^(0x)?[0-9A-F]{40}$/.test(address)
   ) {
-    // If it's all small caps or all all caps, return true
+    // if it's all small caps or all all caps, return true
     return true;
   } else {
-    // Otherwise check each case
+    // otherwise check each case
     return isChecksumAddress(address);
   }
 };

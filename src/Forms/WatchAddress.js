@@ -70,14 +70,7 @@ export const WatchAddress = () => {
     <Form
       onSubmit={onSubmit}
       validate={validate}
-      render={({
-        handleSubmit,
-        form,
-        errors,
-        submitting,
-        pristine,
-        values,
-      }) => (
+      render={({ handleSubmit, form, submitting, pristine }) => (
         <Box
           as="form"
           p={4}
